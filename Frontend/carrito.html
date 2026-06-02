@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito - CampoYa</title>
+    <link rel="stylesheet" href="styles/estilosCarrito.css">
+</head>
+<body>
+    <main class="page">
+        <header class="topbar">
+            <a href="#" class="brand">
+                <span class="brand-circle"></span>
+                CampoYa
+            </a>
+            <ul class="nav-links">
+                <li><a href="#">Tienda</a></li>
+                <li><a href="#">Mi perfil</a></li>
+                <li><a href="#">Granjas</a></li>
+                <li><a href="#">Cómo funciona</a></li>
+            </ul>
+            <button class="back-button">Regresar</button>
+        </header>
+
+        <section class="hero">
+            <div>
+                <h1 class="hero-title">Del campo <em>fresco</em> a tu casa.</h1>
+                <section class="cart-section">
+                    <div class="cart-header">
+                        <h2>Carrito</h2>
+                        <span class="item-count">3 items</span>
+                    </div>
+                    <hr class="divider">
+
+                    <article class="cart-item">
+                        <div class="item-image">
+                            <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=320&q=80" alt="Tomate">
+                        </div>
+                        <div class="item-info">
+                            <p class="item-title">Tomate</p>
+                            <p class="item-price">$1.500 <span>/ lb</span></p>
+                            <span class="quantity-pill">
+                                1 lb
+                                <svg viewBox="0 0 24 24"><path d="M6 12h12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                        </div>
+                        <div class="item-total">$1.500</div>
+                    </article>
+
+                    <article class="cart-item">
+                        <div class="item-image">
+                            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=320&q=80" alt="Jengibre">
+                        </div>
+                        <div class="item-info">
+                            <p class="item-title">Jengibre</p>
+                            <p class="item-price">$7.600 <span>/ lb</span></p>
+                            <span class="quantity-pill">
+                                0.5 lb
+                                <svg viewBox="0 0 24 24"><path d="M6 12h12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                        </div>
+                        <div class="item-total">$3.800</div>
+                    </article>
+
+                    <article class="cart-item">
+                        <div class="item-image">
+                            <img src="https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?auto=format&fit=crop&w=320&q=80" alt="Cebolla Roja">
+                        </div>
+                        <div class="item-info">
+                            <p class="item-title">Cebolla Roja</p>
+                            <p class="item-price">$2.000 <span>/ lb</span></p>
+                            <span class="quantity-pill">
+                                5 lb
+                                <svg viewBox="0 0 24 24"><path d="M6 12h12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                        </div>
+                        <div class="item-total">$10.000</div>
+                    </article>
+                </section>
+            </div>
+
+            <aside class="summary-card">
+                <h3>Order summary</h3>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <strong>$15.300</strong>
+                </div>
+                <div class="summary-row">
+                    <span>Domicilio</span>
+                    <strong>$4.000</strong>
+                </div>
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <strong>$19.300</strong>
+                </div>
+                <button>
+                    Continuar pago
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+            </aside>
+        </section>
+    </main>
+</body>
+</html>
