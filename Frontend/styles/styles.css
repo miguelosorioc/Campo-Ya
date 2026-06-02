@@ -46,7 +46,8 @@
             font-weight: 700;
             font-size: 1.25rem;
             letter-spacing: -0.02em;
-            texte-decoration: none;
+                text-decoration: none;
+                color: var(--text);
         }
 
         .brand-circle {
