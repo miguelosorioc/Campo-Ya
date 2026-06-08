@@ -18,7 +18,7 @@
 
         <section class="hero">
             <div class="login-panel" id="loginPanel">
-                <h1>Ingreso de administrador</h1>
+                <h1>Iniciar sesión</h1>
                 <p>Introduce tus credenciales para acceder al panel de administración.</p>
                 <form id="adminLoginForm">
                     <label>
@@ -30,30 +30,14 @@
                         <input type="password" name="password" placeholder="1234" required>
                     </label>
                     <p class="error-msg" id="loginError" aria-live="polite"></p>
-                    <button type="submit" class="primary">Ingresar como admin</button>
+                    <button type="submit" class="primary">Iniciar Sesión</button>
                 </form>
+                <div class="form-footer">
+                    <p>¿No tienes cuenta? <a href="registro.html">Crear cuenta</a></p>
+                </div>
             </div>
 
-            <div class="admin-panel" id="adminPanel" hidden>
-                <div class="admin-header">
-                    <h1>Panel de administración</h1>
-                    <button id="logoutButton" class="secondary">Cerrar sesión</button>
-                </div>
-                <div class="admin-content">
-                    <div class="admin-card">
-                        <h2>Bienvenido, admin</h2>
-                        <p>Desde aquí puedes revisar pedidos, gestionar productos y ver el estado del sitio.</p>
-                    </div>
-                    <div class="admin-card">
-                        <h3>Acciones disponibles</h3>
-                        <ul>
-                            <li>Ver lista de pedidos recientes</li>
-                            <li>Gestionar productos y granjas</li>
-                            <li>Revisar información de entregas</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+           
         </section>
     </main>
 

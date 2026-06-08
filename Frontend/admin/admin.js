@@ -32,7 +32,18 @@ loginForm.addEventListener('submit', function (event) {
     const username = formData.get('username').trim();
     const password = formData.get('password').trim();
 
+    // Verificar contra admin default
     if (username === ADMIN_USER && password === ADMIN_PASSWORD) {
+        localStorage.setItem('campoYaAdmin', 'true');
+        showAdmin();
+        return;
+    }
+
+    // Verificar contra usuarios registrados
+    const users = JSON.parse(localStorage.getItem('campoYaUsers') || '[]');
+    const user = users.find(u => u.username === username && u.password === password);
+
+    if (user) {
         localStorage.setItem('campoYaAdmin', 'true');
         showAdmin();
     } else {
