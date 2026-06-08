@@ -1,3 +1,9 @@
+// Limpiar sesión al retroceder desde registro
+window.addEventListener('popstate', function () {
+    localStorage.removeItem('campoYaAdmin');
+    window.location.href = 'admin.html';
+});
+
 const registerForm = document.getElementById('registerForm');
 const registerError = document.getElementById('registerError');
 const registerSuccess = document.getElementById('registerSuccess');
@@ -59,7 +65,7 @@ registerForm.addEventListener('submit', function (event) {
         fullname,
         username,
         email,
-        password, // En producción, nunca almacenes contraseñas en texto plano
+        password,
         role,
         createdAt: new Date().toISOString()
     };

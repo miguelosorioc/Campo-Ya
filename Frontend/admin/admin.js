@@ -6,6 +6,12 @@ const loginPanel = document.getElementById('loginPanel');
 const adminPanel = document.getElementById('adminPanel');
 const logoutButton = document.getElementById('logoutButton');
 
+// Limpiar sesión al retroceder
+window.addEventListener('popstate', function () {
+    localStorage.removeItem('campoYaAdmin');
+    window.location.href = 'admin.html';
+});
+
 function showAdmin() {
     loginPanel.hidden = true;
     adminPanel.hidden = false;
