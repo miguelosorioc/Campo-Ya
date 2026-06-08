@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi perfil - CampoYa</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./perfil-styles.css">
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <a href="#" class="brand">
+        <span class="brand-circle"></span>
+        CampoYa
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#">Inicio</a></li>
+        <li><a href="#">Mi perfil</a></li>
+        <li><a href="#">Granjas</a></li>
+      </ul>
+
+      <button class="login-btn">Cerrar sesión</button>
+    </header>
+
+    <section class="hero" style="margin-top:28px;">
+      <div class="hero-main">
+        <div class="perfil-header">
+          <div class="perfil-header-content">
+            <div class="perfil-avatar">MP</div>
+            <div class="perfil-info">
+              <h1>María Pérez</h1>
+              <p class="email">maria@example.com</p>
+              <p class="fecha-miembro">Miembro desde hace 8 meses</p>
+
+              <div class="perfil-stats">
+                <div class="stat-box">
+                  <div class="stat-box-value">24</div>
+                  <div class="stat-box-label">Pedidos</div>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-box-value">$2.4M</div>
+                  <div class="stat-box-label">Gastado</div>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-box-value accent">1,240</div>
+                  <div class="stat-box-label">Puntos</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="perfil-cards-grid">
+          <div class="perfil-card card-interactive">
+            <strong>📦 Mis pedidos</strong>
+            <span>Ver y rastrear tus compras</span>
+            <div class="perfil-card-link">Ver historial →</div>
+          </div>
+          <div class="perfil-card card-interactive">
+            <strong>💳 Métodos de pago</strong>
+            <span>Administra tus tarjetas</span>
+            <div class="perfil-card-link">1 tarjeta guardada →</div>
+          </div>
+        </div>
+
+        <div class="perfil-favoritos">
+          <h2>❤️ Productos favoritos</h2>
+          <div class="favoritos-grid">
+            <div class="favorito-item">
+              <div class="favorito-emoji">🍅</div>
+              <div class="favorito-nombre">Tomate</div>
+              <div class="favorito-precio">$4.500/kg</div>
+            </div>
+            <div class="favorito-item">
+              <div class="favorito-emoji">🥕</div>
+              <div class="favorito-nombre">Zanahoria</div>
+              <div class="favorito-precio">$3.200/kg</div>
+            </div>
+            <div class="favorito-item">
+              <div class="favorito-emoji">🥬</div>
+              <div class="favorito-nombre">Lechuga</div>
+              <div class="favorito-precio">$3.200/u</div>
+            </div>
+            <div class="favorito-item">
+              <div class="favorito-emoji">🫚</div>
+              <div class="favorito-nombre">Jengibre</div>
+              <div class="favorito-precio">$7.600/500g</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="perfil-pedidos">
+          <h2>📋 Últimos pedidos</h2>
+          <div class="pedidos-list">
+            <div class="pedido-item">
+              <div class="pedido-info">
+                <strong>Pedido #12345</strong>
+                <div class="pedido-detalle">15 de junio, 2026 • $45.800</div>
+              </div>
+              <div class="pedido-badge badge-entregado">✓ Entregado</div>
+            </div>
+
+            <div class="pedido-item en-ruta">
+              <div class="pedido-info">
+                <strong>Pedido #12320</strong>
+                <div class="pedido-detalle">12 de junio, 2026 • $32.500</div>
+              </div>
+              <div class="pedido-badge badge-en-ruta">⏳ En ruta</div>
+            </div>
+
+            <div class="pedido-item">
+              <div class="pedido-info">
+                <strong>Pedido #12305</strong>
+                <div class="pedido-detalle">8 de junio, 2026 • $28.900</div>
+              </div>
+              <div class="pedido-badge badge-entregado">✓ Entregado</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <aside class="perfil-sidebar">
+        <div class="sidebar-sticky">
+
+
+          <div class="sidebar-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-weight: 700;">
+              <span>🎁 Tus puntos</span>
+              <span class="puntos-badge">+10 hoy</span>
+            </div>
+            <div class="puntos-display">
+              <div class="puntos-header">
+                <strong>1.240 puntos</strong>
+                <span class="puntos-muted">de 5.000</span>
+              </div>
+              <div class="progress-bar-container">
+                <div class="progress-bar-fill"></div>
+              </div>
+              <div class="puntos-info">Canjea en próxima compra</div>
+            </div>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>📞 Contacto</h3>
+            <div class="contacto-list">
+              <div class="contacto-item">
+                <span>📧</span>
+                <a href="mailto:maria@example.com">maria@example.com</a>
+              </div>
+              <div class="contacto-item">
+                <span>📱</span>
+                <a href="tel:+573001234567">+57 300 123 4567</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>💳 Método de pago</h3>
+            <div class="tarjeta-credito">
+              <div class="tarjeta-tipo">Visa</div>
+              <div class="tarjeta-numero">•••• •••• •••• 1234</div>
+              <div class="tarjeta-footer">
+                <span>María Pérez</span>
+                <span>08/26</span>
+              </div>
+            </div>
+            <button class="btn-agregar-metodo">+ Agregar otro método</button>
+          </div>
+
+        </div>
+      </aside>
+    </section>
+  </main>
+</body>
+</html>

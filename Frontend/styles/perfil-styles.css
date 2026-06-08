@@ -1,0 +1,474 @@
+/* Tarjeta de perfil principal */
+.perfil-header {
+  background: var(--surface);
+  padding: 32px;
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+  margin-bottom: 28px;
+}
+
+.perfil-header-content {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+}
+
+.perfil-avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e7f4db, #d2e7ba);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 3rem;
+  min-width: 140px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.perfil-info {
+  flex: 1;
+}
+
+.perfil-info h1 {
+  margin: 0 0 6px 0;
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+.perfil-info .email {
+  color: var(--text-muted);
+  margin: 0 0 4px 0;
+}
+
+.perfil-info .fecha-miembro {
+  color: var(--text-muted);
+  margin: 0 0 20px 0;
+}
+
+.perfil-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+.stat-box {
+  background: var(--surface-soft);
+  padding: 12px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.stat-box-value {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--green);
+}
+
+.stat-box-value.accent {
+  color: var(--accent);
+}
+
+.stat-box-label {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* Cards con transiciones */
+.card-interactive {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.card-interactive:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 60px rgba(22, 42, 23, 0.12) !important;
+}
+
+/* Sección de cards de resumen */
+.perfil-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.perfil-card {
+  background: var(--surface);
+  padding: 24px;
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.perfil-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 60px rgba(22, 42, 23, 0.12);
+}
+
+.perfil-card strong {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.perfil-card span {
+  display: block;
+  margin-top: 8px;
+  color: var(--text-muted);
+}
+
+.perfil-card-link {
+  margin-top: 12px;
+  color: var(--green);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* Sección de favoritos */
+.perfil-favoritos {
+  background: var(--surface);
+  padding: 24px;
+  min-height: auto;
+  border-radius: 20px;
+  margin-bottom: 28px;
+  box-shadow: var(--shadow);
+}
+
+.perfil-favoritos h2 {
+  margin: 0 0 16px 0;
+  font-size: 1.2rem;
+}
+
+.favoritos-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.favorito-item {
+  background: var(--surface-soft);
+  padding: 12px;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.favorito-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+.favorito-emoji {
+  font-size: 2rem;
+  margin-bottom: 6px;
+}
+
+.favorito-nombre {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.favorito-precio {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* Sección de pedidos */
+.perfil-pedidos {
+  background: var(--surface);
+  padding: 24px;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+.perfil-pedidos h2 {
+  margin: 0 0 16px 0;
+  font-size: 1.2rem;
+}
+
+.pedidos-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pedido-item {
+  background: var(--surface-soft);
+  padding: 14px 16px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 4px solid var(--green);
+}
+
+.pedido-item.en-ruta {
+  border-left-color: var(--accent);
+}
+
+.pedido-info strong {
+  display: block;
+}
+
+.pedido-detalle {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.pedido-badge {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.badge-entregado {
+  background: var(--green-soft);
+  color: var(--green);
+}
+
+.badge-en-ruta {
+  background: rgba(243, 156, 45, 0.1);
+  color: var(--accent);
+}
+
+/* Sidebar */
+.perfil-sidebar {
+  width: 380px;
+}
+
+.sidebar-sticky {
+  position: sticky;
+  top: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.sidebar-card {
+  background: var(--surface);
+  padding: 18px;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+.sidebar-card h3 {
+  font-weight: 700;
+  margin: 0 0 12px 0;
+}
+
+
+/* Card de puntos */
+.puntos-badge {
+  background: var(--accent);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  display: inline-block;
+}
+
+.puntos-display {
+  background: var(--surface-soft);
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+
+.puntos-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.puntos-header strong {
+  font-weight: 600;
+}
+
+.puntos-muted {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  width: 24.8%;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 3px;
+}
+
+.puntos-info {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-top: 6px;
+}
+
+/* Card de puntos */
+.puntos-badge {
+  background: var(--accent);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  display: inline-block;
+}
+
+.puntos-display {
+  background: var(--surface-soft);
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+
+.puntos-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.puntos-header strong {
+  font-weight: 600;
+}
+
+.puntos-muted {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  width: 24.8%;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 3px;
+}
+
+.puntos-info {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-top: 6px;
+}
+
+/* Card de contacto */
+.contacto-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.95rem;
+}
+
+.contacto-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.contacto-item:hover {
+  background: var(--surface-soft);
+}
+
+.contacto-item a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+/* Card de pago */
+.tarjeta-credito {
+  background: linear-gradient(135deg, #2c4a2f 0%, #1a3a20 100%);
+  color: white;
+  padding: 14px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  font-family: monospace;
+}
+
+.tarjeta-tipo {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 8px;
+}
+
+.tarjeta-numero {
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.tarjeta-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+}
+
+.btn-agregar-metodo {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: var(--surface-soft);
+  color: var(--text);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-agregar-metodo:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .perfil-header-content {
+    gap: 20px;
+  }
+
+  .perfil-sidebar {
+    width: 100%;
+  }
+
+  .favoritos-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .perfil-header-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .perfil-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .perfil-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .favoritos-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
