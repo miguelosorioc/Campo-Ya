@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - CampoYa</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/estilologin.css">
+</head>
+<body class="admin-login">
+    <main class="page">
+        <header class="topbar">
+            <a href="index.html" class="brand">
+                <span class="brand-circle"></span>
+                CampoYa Admin
+            </a>
+        </header>
+
+        <section class="hero">
+            <div class="login-panel" id="loginPanel">
+                <h1>Ingreso de administrador</h1>
+                <p>Introduce tus credenciales para acceder al panel de administración.</p>
+                <form id="adminLoginForm">
+                    <label>
+                        Usuario
+                        <input type="text" name="username" placeholder="admin" required>
+                    </label>
+                    <label>
+                        Contraseña
+                        <input type="password" name="password" placeholder="1234" required>
+                    </label>
+                    <p class="error-msg" id="loginError" aria-live="polite"></p>
+                    <button type="submit" class="primary">Ingresar como admin</button>
+                </form>
+            </div>
+
+            <div class="admin-panel" id="adminPanel" hidden>
+                <div class="admin-header">
+                    <h1>Panel de administración</h1>
+                    <button id="logoutButton" class="secondary">Cerrar sesión</button>
+                </div>
+                <div class="admin-content">
+                    <div class="admin-card">
+                        <h2>Bienvenido, admin</h2>
+                        <p>Desde aquí puedes revisar pedidos, gestionar productos y ver el estado del sitio.</p>
+                    </div>
+                    <div class="admin-card">
+                        <h3>Acciones disponibles</h3>
+                        <ul>
+                            <li>Ver lista de pedidos recientes</li>
+                            <li>Gestionar productos y granjas</li>
+                            <li>Revisar información de entregas</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="admin/admin.js" defer></script>
+</body>
+</html>
