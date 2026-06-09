@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito - CampoYa</title>
+    <link rel="stylesheet" href="CSS/carrito.css">
+</head>
+<body>
+    <main class="page">
+        <header class="topbar">
+            <a href="index.html" class="brand">
+                <span class="brand-circle"></span>
+                CampoYa
+            </a>
+            <ul class="nav-links">
+                <li><a href="producto.html">Tienda</a></li>
+                <li><a href="perfil.html">Mi perfil</a></li>
+                <li><a href="#">Granjas</a></li>
+                <li><a href="#">Cómo funciona</a></li>
+            </ul>
+            <button class="back-button" onclick="window.location.href='producto.html'">Regresar</button>
+        </header>
+
+        <section class="hero">
+            <div>
+                <h1 class="hero-title">Del campo <em>fresco</em> a tu casa.</h1>
+                <section class="cart-section">
+                    <div class="cart-header">
+                        <h2>Carrito</h2>
+                        <span class="item-count" id="item-count">0 items</span>
+                    </div>
+                    <hr class="divider">
+                    <div id="cart-items">
+                        <p style="text-align:center; color:#5f6b55; padding:24px 0;">
+                            Tu carrito está vacío. <a href="producto.html" style="color:#214b24; font-weight:700;">Ver productos</a>
+                        </p>
+                    </div>
+                </section>
+            </div>
+
+            <aside class="summary-card">
+                <h3>Resumen del pedido</h3>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <strong id="subtotal">$0</strong>
+                </div>
+                <div class="summary-row">
+                    <span>Domicilio</span>
+                    <strong>$4.000</strong>
+                </div>
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <strong id="total">$4.000</strong>
+                </div>
+                <button onclick="finalizarPedido()">
+                    Continuar pago
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <button onclick="vaciarCarrito()" style="margin-top:10px; background:#f3ecdb; color:#10301b; box-shadow:none;">
+                    Vaciar carrito
+                </button>
+            </aside>
+        </section>
+    </main>
+
+    <script>
+        const DOMICILIO = 4000;
+
+        function cargarCarrito() {
+            const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+            const contenedor = document.getElementById('cart-items');
+            const itemCount  = document.getElementById('item-count');
+            const subtotalEl = document.getElementById('subtotal');
+            const totalEl    = document.getElementById('total');
+
+            if (carrito.length === 0) {
+                contenedor.innerHTML = `
+                    <p style="text-align:center; color:#5f6b55; padding:24px 0;">
+                        Tu carrito está vacío. <a href="producto.html" style="color:#214b24; font-weight:700;">Ver productos</a>
+                    </p>`;
+                itemCount.textContent  = '0 items';
+                subtotalEl.textContent = '$0';
+                totalEl.textContent    = '$' + DOMICILIO.toLocaleString('es-CO');
+                return;
+            }
+
+            let subtotal = 0;
+            contenedor.innerHTML = carrito.map(item => {
+                const itemTotal = item.precio * item.cantidad;
+                subtotal += itemTotal;
+                return `
+                <article class="cart-item">
+                    <div class="item-image">
+                        <span style="font-size:2.5rem;">🌿</span>
+                    </div>
+                    <div class="item-info">
+                        <p class="item-title">${item.nombre}</p>
+                        <p class="item-price">$${Number(item.precio).toLocaleString('es-CO')} <span>/ lb</span></p>
+                        <span class="quantity-pill">
+                            <button onclick="cambiarCantidad(${item.id}, -1)" style="background:none;border:none;cursor:pointer;font-size:1rem;padding:0 4px;">−</button>
+                            ${item.cantidad} lb
+                            <button onclick="cambiarCantidad(${item.id}, 1)" style="background:none;border:none;cursor:pointer;font-size:1rem;padding:0 4px;">+</button>
+                        </span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+                        <div class="item-total">$${itemTotal.toLocaleString('es-CO')}</div>
+                        <button onclick="eliminarItem(${item.id})" style="background:none;border:none;color:#b3261e;cursor:pointer;font-size:0.85rem;font-weight:600;">Eliminar</button>
+                    </div>
+                </article>`;
+            }).join('');
+
+            itemCount.textContent  = `${carrito.length} item${carrito.length !== 1 ? 's' : ''}`;
+            subtotalEl.textContent = '$' + subtotal.toLocaleString('es-CO');
+            totalEl.textContent    = '$' + (subtotal + DOMICILIO).toLocaleString('es-CO');
+        }
+
+        function cambiarCantidad(id, delta) {
+            let carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+            const item  = carrito.find(i => i.id === id);
+            if (!item) return;
+            item.cantidad += delta;
+            if (item.cantidad <= 0) {
+                carrito = carrito.filter(i => i.id !== id);
+            }
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            cargarCarrito();
+        }
+
+        function eliminarItem(id) {
+            let carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+            carrito = carrito.filter(i => i.id !== id);
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            cargarCarrito();
+        }
+
+        function vaciarCarrito() {
+            if (confirm('¿Seguro que quieres vaciar el carrito?')) {
+                localStorage.removeItem('carrito');
+                cargarCarrito();
+            }
+        }
+
+        function finalizarPedido() {
+            const token = localStorage.getItem('access');
+            if (!token) {
+                alert('Debes iniciar sesión para continuar.');
+                window.location.href = 'sesion.html';
+                return;
+            }
+            alert('Funcionalidad de pago próximamente.');
+        }
+
+        cargarCarrito();
+    </script>
+</body>
+</html>

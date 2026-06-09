@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - CampoYa</title>
+    <link rel="stylesheet" href="CSS/styles.css">
+    <link rel="stylesheet" href="CSS/sesion.css">
+</head>
+<body class="admin-login">
+    <main class="page">
+        <header class="topbar">
+            <a href="index.html" class="brand">
+                <span class="brand-circle"></span>
+                CampoYa
+            </a>
+        </header>
+
+        <section class="hero">
+            <div class="register-panel" id="registerPanel">
+                <h1>Crear cuenta</h1>
+                <p>Regístrate para comprar productos frescos o vender tus cosechas.</p>
+                <form id="registerForm">
+                    <label>
+                        Nombre completo
+                        <input type="text" name="fullname" placeholder="Juan Pérez" required>
+                    </label>
+                    <label>
+                        Usuario
+                        <input type="text" name="username" placeholder="usuario123" required>
+                    </label>
+                    <label>
+                        Email
+                        <input type="email" name="email" placeholder="tu@email.com" required>
+                    </label>
+                    <label>
+                        Contraseña
+                        <input type="password" name="password" placeholder="Mínimo 6 caracteres" required>
+                    </label>
+                    <label>
+                        Confirmar contraseña
+                        <input type="password" name="confirmPassword" placeholder="Repite tu contraseña" required>
+                    </label>
+
+                    <div class="role-selector">
+                        <label>Selecciona tu rol</label>
+                        <div class="role-buttons">
+                            <button type="button" class="role-btn" data-role="cliente">
+                                <span class="role-icon">🛒</span>
+                                Cliente
+                            </button>
+                            <button type="button" class="role-btn" data-role="granjero">
+                                <span class="role-icon">🌱</span>
+                                Granjero
+                            </button>
+                        </div>
+                        <input type="hidden" name="role" id="roleInput">
+                    </div>
+
+                    <p class="error-msg" id="registerError" aria-live="polite"></p>
+                    <p class="success-msg" id="registerSuccess" aria-live="polite"></p>
+                    <button type="submit" class="primary">Crear cuenta</button>
+                </form>
+                <div class="form-footer">
+                    <p>¿Ya tienes cuenta? <a href="sesion.html">Inicia sesión</a></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="admin/registro.js" defer></script>
+</body>
+</html>

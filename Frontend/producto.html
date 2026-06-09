@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tienda - CampoYa</title>
+    <link rel="stylesheet" href="CSS/styles.css" />
+    <link rel="stylesheet" href="CSS/producto-styles.css" />
+</head>
+<body>
+<main class="page">
+    <header class="header">
+        <div class="brand">
+            <div class="logo"></div>
+            <h1>CampoYa</h1>
+        </div>
+        <button class="cart-btn" onclick="window.location.href='carrito.html'">
+            🛒 Carrito (<span id="cart-count">0</span>)
+        </button>
+    </header>
+
+    <nav class="nav">
+        <a href="index.html">Inicio</a>
+        <a href="perfil.html">Mi perfil</a>
+        <a href="#">Granjas</a>
+        <a href="#">Cómo funciona</a>
+    </nav>
+
+    <section class="location-box">
+        <span>📍 Riohacha - Directo de casa finca</span>
+        <p>Productos frescos del día. Disponibles por 24 horas o hasta agotar existencias.</p>
+    </section>
+
+    <section class="hero">
+        <div>
+            <h2>Productos frescos</h2>
+            <div class="filters">
+                <button class="active" data-categoria="todos">Todos</button>
+                <button data-categoria="verdura">Verduras</button>
+                <button data-categoria="tuberculo">Hortalizas</button>
+                <button data-categoria="fruta">Frutas</button>
+                <button data-categoria="otro">Aromáticas</button>
+            </div>
+        </div>
+        <button class="home-btn" onclick="window.location.href='index.html'">Inicio</button>
+    </section>
+
+    <section class="products" id="products-container">
+        <!-- Los productos se cargan dinámicamente desde la API -->
+        <div style="grid-column:1/-1; text-align:center; padding:40px; color:#5f6b55;">
+            Cargando productos...
+        </div>
+    </section>
+</main>
+
+<script src="js/productos.js"></script>
+</body>
+</html>

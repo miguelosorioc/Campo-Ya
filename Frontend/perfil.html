@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi perfil - CampoYa</title>
+  <link rel="stylesheet" href="CSS/styles.css">
+  <link rel="stylesheet" href="CSS/perfil.css">
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <a href="index.html" class="brand">
+        <span class="brand-circle"></span>
+        CampoYa
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="producto.html">Tienda</a></li>
+        <li><a href="#">Granjas</a></li>
+      </ul>
+      <button class="login-btn" onclick="cerrarSesion()">Cerrar sesión</button>
+    </header>
+
+    <section class="hero" style="margin-top:28px;">
+      <div class="hero-main">
+        <div class="perfil-header">
+          <div class="perfil-header-content">
+            <div class="perfil-avatar" id="perfil-avatar">--</div>
+            <div class="perfil-info">
+              <h1 id="perfil-nombre">Cargando...</h1>
+              <p class="email" id="perfil-email"></p>
+              <p class="fecha-miembro" id="perfil-rol"></p>
+              <div class="perfil-stats">
+                <div class="stat-box">
+                  <div class="stat-box-value" id="stat-pedidos">0</div>
+                  <div class="stat-box-label">Pedidos</div>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-box-value">$0</div>
+                  <div class="stat-box-label">Gastado</div>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-box-value accent">0</div>
+                  <div class="stat-box-label">Puntos</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card del granjero — solo visible si rol === granjero -->
+        <div id="granjero-banner" style="display:none; margin-bottom:28px;">
+          <div class="granjero-card-banner" onclick="window.location.href='granjero.html'">
+            <div class="granjero-banner-icon">🌱</div>
+            <div>
+              <strong>Panel de granjero</strong>
+              <span>Publica tus productos del día y gestiona tu stock</span>
+            </div>
+            <div class="granjero-banner-arrow">→</div>
+          </div>
+        </div>
+
+        <div class="perfil-cards-grid">
+          <div class="perfil-card card-interactive" onclick="window.location.href='carrito.html'">
+            <strong>📦 Mis pedidos</strong>
+            <span>Ver y rastrear tus compras</span>
+            <div class="perfil-card-link">Ver historial →</div>
+          </div>
+          <div class="perfil-card card-interactive">
+            <strong>💳 Métodos de pago</strong>
+            <span>Administra tus tarjetas</span>
+            <div class="perfil-card-link">Próximamente →</div>
+          </div>
+        </div>
+
+        <div class="perfil-pedidos">
+          <h2>📋 Últimos pedidos</h2>
+          <div class="pedidos-list" id="pedidos-list">
+            <p style="color:#5f6b55; text-align:center; padding:16px 0;">
+              No tienes pedidos aún. <a href="producto.html" style="color:#214b24; font-weight:700;">Ver productos</a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <aside class="perfil-sidebar">
+        <div class="sidebar-sticky">
+          <div class="sidebar-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; font-weight:700;">
+              <span>🎁 Tus puntos</span>
+              <span class="puntos-badge">+0 hoy</span>
+            </div>
+            <div class="puntos-display">
+              <div class="puntos-header">
+                <strong>0 puntos</strong>
+                <span class="puntos-muted">de 5.000</span>
+              </div>
+              <div class="progress-bar-container">
+                <div class="progress-bar-fill" style="width:0%"></div>
+              </div>
+              <div class="puntos-info">Canjea en próxima compra</div>
+            </div>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>📞 Contacto</h3>
+            <div class="contacto-list">
+              <div class="contacto-item">
+                <span>📧</span>
+                <span id="contacto-email">-</span>
+              </div>
+              <div class="contacto-item">
+                <span>👤</span>
+                <span id="contacto-usuario">-</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>⚙️ Cuenta</h3>
+            <button class="btn-agregar-metodo" onclick="cerrarSesion()">
+              Cerrar sesión
+            </button>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    const API = 'http://127.0.0.1:8000/api';
+
+    async function cargarPerfil() {
+      const token = localStorage.getItem('access');
+      if (!token) {
+        window.location.href = 'sesion.html';
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API}/users/profile/`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (res.status === 401) {
+          window.location.href = 'sesion.html';
+          return;
+        }
+
+        const data = await res.json();
+        const iniciales = data.username.substring(0, 2).toUpperCase();
+
+        document.getElementById('perfil-avatar').textContent  = iniciales;
+        document.getElementById('perfil-nombre').textContent  = data.username;
+        document.getElementById('perfil-email').textContent   = data.email || 'Sin email';
+        document.getElementById('perfil-rol').textContent     = data.rol === 'granjero' ? '🌱 Granjero' : '🛒 Cliente';
+        document.getElementById('contacto-email').textContent   = data.email || '-';
+        document.getElementById('contacto-usuario').textContent = data.username;
+
+        // Mostrar banner del granjero si tiene ese rol
+        if (data.rol === 'granjero') {
+            document.getElementById('granjero-banner').style.display = 'block';
+        }
+
+      } catch (err) {
+        console.error('Error cargando perfil:', err);
+      }
+    }
+
+    async function cargarPedidos() {
+      const token = localStorage.getItem('access');
+      if (!token) return;
+
+      try {
+        const res = await fetch(`${API}/pedidos/`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const pedidos = await res.json();
+        const lista   = document.getElementById('pedidos-list');
+        document.getElementById('stat-pedidos').textContent = pedidos.length;
+
+        if (pedidos.length === 0) {
+          lista.innerHTML = `
+            <p style="color:#5f6b55; text-align:center; padding:16px 0;">
+              No tienes pedidos aún. <a href="producto.html" style="color:#214b24; font-weight:700;">Ver productos</a>
+            </p>`;
+          return;
+        }
+
+        lista.innerHTML = pedidos.map(p => `
+          <div class="pedido-item ${p.estado === 'en_camino' ? 'en-ruta' : ''}">
+            <div class="pedido-info">
+              <strong>Pedido #${p.id}</strong>
+              <div class="pedido-detalle">${new Date(p.creado_en).toLocaleDateString('es-CO', {day:'numeric',month:'long',year:'numeric'})} • $${Number(p.total).toLocaleString('es-CO')}</div>
+            </div>
+            <div class="pedido-badge ${p.estado === 'entregado' ? 'badge-entregado' : p.estado === 'en_camino' ? 'badge-en-ruta' : ''}">
+              ${p.estado === 'entregado' ? '✓ Entregado' : p.estado === 'en_camino' ? '⏳ En ruta' : '🕐 Pendiente'}
+            </div>
+          </div>`).join('');
+
+      } catch (err) {
+        console.error('Error cargando pedidos:', err);
+      }
+    }
+
+    function cerrarSesion() {
+      localStorage.removeItem('access');
+      localStorage.removeItem('refresh');
+      localStorage.removeItem('username');
+      localStorage.removeItem('carrito');
+      window.location.href = 'index.html';
+    }
+
+    cargarPerfil();
+    cargarPedidos();
+  </script>
+</body>
+</html>

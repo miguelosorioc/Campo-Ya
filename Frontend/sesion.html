@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión - CampoYa</title>
+    <link rel="stylesheet" href="CSS/styles.css">
+    <link rel="stylesheet" href="CSS/sesion.css">
+</head>
+<body class="admin-login">
+    <main class="page">
+        <header class="topbar">
+            <a href="index.html" class="brand">
+                <span class="brand-circle"></span>
+                CampoYa
+            </a>
+        </header>
+
+        <section class="hero">
+            <div class="login-panel" id="loginPanel">
+                <h1>Iniciar sesión</h1>
+                <p>Bienvenido de nuevo. Introduce tus credenciales para continuar.</p>
+                <form id="adminLoginForm">
+                    <label>
+                        Usuario
+                        <input type="text" name="username" placeholder="usuario123" required>
+                    </label>
+                    <label>
+                        Contraseña
+                        <input type="password" name="password" placeholder="Tu contraseña" required>
+                    </label>
+                    <p class="error-msg" id="loginError" aria-live="polite"></p>
+                    <button type="submit" class="primary">Iniciar sesión</button>
+                </form>
+                <div class="form-footer">
+                    <p>¿No tienes cuenta? <a href="registro.html">Crear cuenta</a></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="admin/admin.js" defer></script>
+</body>
+</html>

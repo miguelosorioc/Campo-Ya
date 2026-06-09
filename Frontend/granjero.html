@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi granja - CampoYa</title>
+    <link rel="stylesheet" href="CSS/styles.css">
+    <link rel="stylesheet" href="CSS/granjero.css">
+</head>
+<body>
+    <main class="page">
+        <header class="topbar">
+            <a href="index.html" class="brand">
+                <span class="brand-circle"></span>
+                CampoYa
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="producto.html">Tienda</a></li>
+                <li><a href="perfil.html">Mi perfil</a></li>
+            </ul>
+            <button class="login-btn" onclick="cerrarSesion()">Cerrar sesión</button>
+        </header>
+
+        <section class="granjero-hero">
+            <div class="granjero-bienvenida">
+                <h1>🌱 Mi granja</h1>
+                <p id="granjero-nombre">Hola, <strong></strong></p>
+            </div>
+            <div class="granjero-stats">
+                <div class="gstat">
+                    <strong id="total-productos">0</strong>
+                    <span>Productos activos</span>
+                </div>
+                <div class="gstat">
+                    <strong id="total-vendidos">0</strong>
+                    <span>Vendidos hoy</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="granjero-grid">
+
+            <!-- Formulario publicar producto -->
+            <section class="granjero-card">
+                <h2>📦 Publicar producto</h2>
+                <p class="card-desc">El producto estará disponible por 24 horas o hasta agotar stock.</p>
+
+                <form id="productoForm">
+                    <div class="form-group">
+                        <label>Nombre del producto</label>
+                        <input type="text" name="nombre" placeholder="Ej: Tomate chonto" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Precio por libra ($)</label>
+                            <input type="number" name="precio" placeholder="4500" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Stock (libras)</label>
+                            <input type="number" name="stock" placeholder="20" min="0.1" step="0.1" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Categoría</label>
+                        <select name="categoria">
+                            <option value="verdura">🥬 Verdura</option>
+                            <option value="fruta">🍉 Fruta</option>
+                            <option value="tuberculo">🥔 Tubérculo / Hortaliza</option>
+                            <option value="otro">🌿 Otro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Foto del producto (opcional)</label>
+                        <div class="foto-upload" id="foto-upload-area">
+                            <input type="file" name="foto" id="fotoInput" accept="image/*" style="display:none">
+                            <div class="foto-preview" id="foto-preview">
+                                <span class="foto-icon">📷</span>
+                                <span>Toca para subir una foto</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Descripción (opcional)</label>
+                        <textarea name="descripcion" placeholder="Ej: Cosechado esta mañana, muy fresco..." rows="3"></textarea>
+                    </div>
+
+                    <p class="error-msg" id="productoError"></p>
+                    <p class="success-msg" id="productoSuccess"></p>
+
+                    <button type="submit" class="btn-publicar">
+                        Publicar producto
+                    </button>
+                </form>
+            </section>
+
+            <!-- Lista de productos del granjero -->
+            <section class="granjero-card">
+                <h2>🌾 Mis productos activos</h2>
+                <div id="mis-productos">
+                    <p style="color:#5f6b55; text-align:center; padding:24px 0;">
+                        No tienes productos publicados aún.
+                    </p>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <script>
+        const API   = 'http://127.0.0.1:8000/api';
+        const token = localStorage.getItem('access');
+        const user  = localStorage.getItem('username');
+
+        // Verificar sesión y rol
+        if (!token) {
+            window.location.href = 'sesion.html';
+        }
+
+        // Mostrar nombre
+        document.querySelector('#granjero-nombre strong').textContent = user || '';
+
+        // ── Cargar productos del granjero ──────────────────────
+        async function cargarMisProductos() {
+            try {
+                const res      = await fetch(`${API}/productos/`);
+                const todos    = await res.json();
+                const mios     = todos.filter(p => p.granjero === user);
+                const contenedor = document.getElementById('mis-productos');
+
+                document.getElementById('total-productos').textContent = mios.length;
+
+                if (mios.length === 0) {
+                    contenedor.innerHTML = `
+                        <p style="color:#5f6b55; text-align:center; padding:24px 0;">
+                            No tienes productos publicados aún.
+                        </p>`;
+                    return;
+                }
+
+                contenedor.innerHTML = mios.map(p => `
+                    <div class="producto-item">
+                        <div class="producto-emoji">${obtenerEmoji(p.categoria)}</div>
+                        <div class="producto-info">
+                            <strong>${p.nombre}</strong>
+                            <span>$${Number(p.precio).toLocaleString('es-CO')} / lb · ${p.stock} lb disponibles</span>
+                            <span class="producto-estado ${p.activo ? 'activo' : 'inactivo'}">
+                                ${p.activo ? '✓ Activo' : '✗ Expirado'}
+                            </span>
+                        </div>
+                        <button class="btn-eliminar" onclick="eliminarProducto(${p.id})">
+                            Eliminar
+                        </button>
+                    </div>
+                `).join('');
+
+            } catch (err) {
+                console.error('Error cargando productos:', err);
+            }
+        }
+
+        // ── Preview de foto ────────────────────────────────────
+        document.getElementById('foto-upload-area').addEventListener('click', () => {
+            document.getElementById('fotoInput').click();
+        });
+
+        document.getElementById('fotoInput').addEventListener('change', (e) => {
+            const file    = e.target.files[0];
+            const preview = document.getElementById('foto-preview');
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                preview.innerHTML = `
+                    <img src="${ev.target.result}" alt="Preview"
+                         style="width:100%;height:100%;object-fit:cover;border-radius:12px;">
+                    <button type="button" onclick="quitarFoto(event)"
+                            style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.5);
+                                   color:white;border:none;border-radius:50%;width:28px;height:28px;
+                                   cursor:pointer;font-size:14px;">✕</button>`;
+                preview.style.padding = '0';
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function quitarFoto(e) {
+            e.stopPropagation();
+            document.getElementById('fotoInput').value = '';
+            document.getElementById('foto-preview').innerHTML = `
+                <span class="foto-icon">📷</span>
+                <span>Toca para subir una foto</span>`;
+            document.getElementById('foto-preview').style.padding = '';
+        }
+
+        // ── Publicar producto ──────────────────────────────────
+        document.getElementById('productoForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const errorMsg   = document.getElementById('productoError');
+            const successMsg = document.getElementById('productoSuccess');
+            const btn        = e.target.querySelector('button[type="submit"]');
+            errorMsg.textContent   = '';
+            successMsg.textContent = '';
+
+            const nombre      = e.target.nombre.value.trim();
+            const precio      = e.target.precio.value;
+            const stock       = e.target.stock.value;
+            const categoria   = e.target.categoria.value;
+            const descripcion = e.target.descripcion.value.trim();
+            const fotoFile    = document.getElementById('fotoInput').files[0];
+
+            btn.textContent = 'Publicando...';
+            btn.disabled    = true;
+
+            // Usar FormData para poder enviar la foto
+            const formData = new FormData();
+            formData.append('nombre',      nombre);
+            formData.append('precio',      precio);
+            formData.append('stock',       stock);
+            formData.append('categoria',   categoria);
+            formData.append('descripcion', descripcion);
+            if (fotoFile) formData.append('foto', fotoFile);
+
+            try {
+                const res = await fetch(`${API}/productos/crear/`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                        // NO poner Content-Type aquí — el navegador lo pone solo con FormData
+                    },
+                    body: formData
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    successMsg.textContent = `✓ "${nombre}" publicado por 24 horas.`;
+                    e.target.reset();
+                    quitarFoto({ stopPropagation: () => {} });
+                    cargarMisProductos();
+                } else {
+                    const errores = Object.values(data).flat().join(' ');
+                    errorMsg.textContent = errores;
+                }
+            } catch (err) {
+                errorMsg.textContent = 'Error de conexión con el servidor.';
+            } finally {
+                btn.textContent = 'Publicar producto';
+                btn.disabled    = false;
+            }
+        });
+
+        // ── Eliminar producto ──────────────────────────────────
+        async function eliminarProducto(id) {
+            if (!confirm('¿Eliminar este producto?')) return;
+
+            try {
+                const res = await fetch(`${API}/productos/${id}/`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (res.ok) {
+                    cargarMisProductos();
+                } else {
+                    alert('No se pudo eliminar el producto.');
+                }
+            } catch (err) {
+                alert('Error de conexión.');
+            }
+        }
+
+        // ── Emoji por categoría ────────────────────────────────
+        function obtenerEmoji(categoria) {
+            const emojis = { verdura: '🥬', fruta: '🍉', tuberculo: '🥔', otro: '🌿' };
+            return emojis[categoria] || '🌿';
+        }
+
+        // ── Cerrar sesión ──────────────────────────────────────
+        function cerrarSesion() {
+            localStorage.clear();
+            window.location.href = 'index.html';
+        }
+
+        cargarMisProductos();
+    </script>
+</body>
+</html>

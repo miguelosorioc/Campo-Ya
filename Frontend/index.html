@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampoYa</title>
+    <link rel="stylesheet" href="CSS/styles.css">
+</head>
+<body>
+    <main class="page">
+        <header class="topbar">
+            <a href="index.html" class="brand">
+                <span class="brand-circle"></span>
+                CampoYa
+            </a>
+            <ul class="nav-links">
+                <li><a href="producto.html">Tienda</a></li>
+                <li><a href="#">Granjas</a></li>
+                <li><a href="#">Cómo funciona</a></li>
+            </ul>
+            <div id="auth-area">
+                <button class="login-btn" onclick="window.location.href='sesion.html'">Iniciar sesión</button>
+            </div>
+        </header>
+
+        <section class="hero">
+            <div class="hero-main">
+                <div class="search-panel">
+                    <span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 21s-6-4.35-6-10a6 6 0 1 1 12 0c0 5.65-6 10-6 10z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        Riohacha · Directo de casa fincas
+                    </span>
+                </div>
+                <h1 class="hero-title">Del campo <em>fresco</em> a tu casa.</h1>
+                <p class="hero-copy">Compra frutas, verduras y hortalizas cultivadas por productores cercanos en Riohacha. Elige por producto o por finca, paga fácil y recibe tu pedido en casa.</p>
+                <div class="actions">
+                    <button class="primary" onclick="window.location.href='producto.html'">Comprar productos</button>
+                    <button class="secondary">Ver granjas locales</button>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <strong>+25</strong>
+                        <span>productos frescos disponibles</span>
+                    </div>
+                    <div class="stat-card">
+                        <strong>Hoy</strong>
+                        <span>entregas programadas en Riohacha</span>
+                    </div>
+                    <div class="stat-card">
+                        <strong>Local</strong>
+                        <span>compra directa a productores</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="visual-card">
+                    <div class="circle-dot small"></div>
+                    <div class="circle-dot medium"></div>
+                    <div class="circle-dot large"></div>
+                    <div class="info-bubble">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 64 64" fill="none" stroke="#2d6b33" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 30c0-8.8 6.7-16 15-16s15 7.2 15 16c0 8.8-6.7 16-15 16S20 38.8 20 30z"></path>
+                                <path d="M29 36c2.4 2.4 4.8 2.4 7.2 0"></path>
+                                <path d="M22 22c3 3.5 7.8 4.5 12 1"></path>
+                            </svg>
+                        </div>
+                        <div class="info-text">
+                            <strong>Entrega local</strong>
+                            <small>Desde granjas y casa fincas hasta tu puerta.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const username = localStorage.getItem('username');
+        const token    = localStorage.getItem('access');
+        const authArea = document.getElementById('auth-area');
+
+        if (username && token) {
+            authArea.innerHTML = `
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <a href="carrito.html" style="text-decoration:none; color:var(--text); font-weight:600; font-size:1.3rem;">
+                        🛒
+                    </a>
+                    <button class="login-btn" onclick="window.location.href='perfil.html'">
+                        👤 ${username}
+                    </button>
+                </div>`;
+        }
+    </script>
+</body>
+</html>
