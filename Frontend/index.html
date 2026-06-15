@@ -103,7 +103,7 @@
 // Cargar producto destacado desde la API
 async function cargarProductoDestacado() {
     try {
-        const res      = await fetch('http://127.0.0.1:8000/api/productos/');
+        const res      = await fetch('https://campo-ya-production.up.railway.app/api/productos/');
         const productos = await res.json();
 
         if (!productos.length) {

@@ -1,4 +1,5 @@
-const API = 'http://127.0.0.1:8000/api';
+//const API = 'http://127.0.0.1:8000/api';
+const API = 'https://campo-ya-production.up.railway.app/api';
 
 document.querySelectorAll('.role-btn').forEach(btn => {
     btn.addEventListener('click', () => {
