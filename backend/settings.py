@@ -6,9 +6,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-u^s(1)mf1szwu+zx9&j5t6a6kucr+en$e5c6@fjm$nd7=r@n1d'
 
-DEBUG = True
+# DEBUG = True
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['campo-ya-production.up.railway.app']
 
 # Apps
 INSTALLED_APPS = [
