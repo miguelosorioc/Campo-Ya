@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tienda - CampoYa</title>
-    <link rel="stylesheet" href="CSS/styles.css" />
     <link rel="stylesheet" href="CSS/producto-styles.css" />
 </head>
 <body>
@@ -22,32 +21,26 @@
     <nav class="nav">
         <a href="index.html">Inicio</a>
         <a href="perfil.html">Mi perfil</a>
-        <a href="#">Granjas</a>
-        <a href="#">Cómo funciona</a>
     </nav>
-
-    <section class="location-box">
-        <span>📍 Riohacha - Directo de casa finca</span>
-        <p>Productos frescos del día. Disponibles por 24 horas o hasta agotar existencias.</p>
-    </section>
 
     <section class="hero">
         <div>
             <h2>Productos frescos</h2>
-            <div class="filters">
-                <button class="active" data-categoria="todos">Todos</button>
-                <button data-categoria="verdura">Verduras</button>
-                <button data-categoria="tuberculo">Hortalizas</button>
-                <button data-categoria="fruta">Frutas</button>
-                <button data-categoria="otro">Aromáticas</button>
-            </div>
+            <p style="color:#5f6b55; font-size:0.88rem; margin-top:4px;">
+                Disponibles por 24 horas o hasta agotar existencias.
+            </p>
         </div>
-        <button class="home-btn" onclick="window.location.href='index.html'">Inicio</button>
+        <div class="filters">
+            <button class="active" data-categoria="todos">Todos</button>
+            <button data-categoria="verdura">Verduras</button>
+            <button data-categoria="tuberculo">Hortalizas</button>
+            <button data-categoria="fruta">Frutas</button>
+            <button data-categoria="otro">Aromáticas</button>
+        </div>
     </section>
 
     <section class="products" id="products-container">
-        <!-- Los productos se cargan dinámicamente desde la API -->
-        <div style="grid-column:1/-1; text-align:center; padding:40px; color:#5f6b55;">
+        <div style="grid-column:1/-1; text-align:center; padding:60px 0; color:#5f6b55;">
             Cargando productos...
         </div>
     </section>

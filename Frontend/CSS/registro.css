@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro - CampoYa</title>
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: Inter, system-ui, -apple-system, sans-serif;
@@ -20,6 +13,7 @@
             color: #10301b;
         }
 
+        /* ── Tarjeta ── */
         .auth-card {
             background: #fff;
             border-radius: 24px;
@@ -30,6 +24,7 @@
             border: 1px solid rgba(16,48,27,0.08);
         }
 
+        /* ── Marca ── */
         .auth-brand {
             display: inline-flex;
             align-items: center;
@@ -47,6 +42,7 @@
             flex-shrink: 0;
         }
 
+        /* ── Títulos ── */
         h1 {
             font-size: 1.65rem;
             font-weight: 700;
@@ -60,7 +56,10 @@
             margin-bottom: 22px;
         }
 
-        .field-group { margin-bottom: 14px; }
+        /* ── Campos ── */
+        .field-group {
+            margin-bottom: 14px;
+        }
         .field-group label {
             display: block;
             font-weight: 600;
@@ -84,12 +83,14 @@
             border-color: #214b24;
         }
 
+        /* ── Fila dos columnas ── */
         .field-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
         }
 
+        /* ── Selector de rol ── */
         .role-selector { margin: 6px 0 16px; }
         .role-label {
             display: block;
@@ -130,6 +131,7 @@
         }
         .role-icon { font-size: 1.25rem; }
 
+        /* ── Mensajes ── */
         .error-msg {
             color: #b3261e;
             font-size: 0.83rem;
@@ -144,6 +146,7 @@
             margin-bottom: 6px;
         }
 
+        /* ── Botón ── */
         .btn-auth {
             width: 100%;
             padding: 13px;
@@ -157,7 +160,6 @@
             cursor: pointer;
             box-shadow: 0 8px 20px rgba(33,75,36,0.2);
             transition: transform 0.2s, box-shadow 0.2s;
-            margin-top: 4px;
         }
         .btn-auth:hover {
             transform: translateY(-1px);
@@ -169,6 +171,7 @@
             transform: none;
         }
 
+        /* ── Footer ── */
         .auth-footer {
             margin-top: 18px;
             text-align: center;
@@ -186,70 +189,3 @@
             .auth-card { padding: 24px 16px; }
             .field-row { grid-template-columns: 1fr; }
         }
-    </style>
-</head>
-<body>
-
-    <div class="auth-card">
-        <a href="index.html" class="auth-brand">
-            <span class="auth-brand-dot"></span>
-            CampoYa
-        </a>
-
-        <h1>Crear cuenta</h1>
-        <p class="auth-sub">Regístrate para comprar productos frescos o vender tus cosechas.</p>
-
-        <form id="registerForm">
-            <div class="field-group">
-                <label>Nombre completo</label>
-                <input type="text" name="fullname" placeholder="Juan Pérez" required>
-            </div>
-
-            <div class="field-row">
-                <div class="field-group">
-                    <label>Usuario</label>
-                    <input type="text" name="username" placeholder="usuario123" required>
-                </div>
-                <div class="field-group">
-                    <label>Email</label>
-                    <input type="email" name="email" placeholder="tu@email.com" required>
-                </div>
-            </div>
-
-            <div class="field-row">
-                <div class="field-group">
-                    <label>Contraseña</label>
-                    <input type="password" name="password" placeholder="Mínimo 6 caracteres" required>
-                </div>
-                <div class="field-group">
-                    <label>Confirmar contraseña</label>
-                    <input type="password" name="confirmPassword" placeholder="Repite tu contraseña" required>
-                </div>
-            </div>
-
-            <div class="role-selector">
-                <label class="role-label">Selecciona tu rol</label>
-                <div class="role-buttons">
-                    <button type="button" class="role-btn" data-role="cliente">
-                        <span class="role-icon">🛒</span>
-                        Cliente
-                    </button>
-                    <button type="button" class="role-btn" data-role="granjero">
-                        <span class="role-icon">🌱</span>
-                        Granjero
-                    </button>
-                </div>
-                <input type="hidden" name="role" id="roleInput">
-            </div>
-
-            <p class="error-msg" id="registerError" aria-live="polite"></p>
-            <p class="success-msg" id="registerSuccess" aria-live="polite"></p>
-            <button type="submit" class="btn-auth">Crear cuenta</button>
-        </form>
-
-        <p class="auth-footer">¿Ya tienes cuenta? <a href="sesion.html">Inicia sesión</a></p>
-    </div>
-
-    <script src="admin/registro.js"></script>
-</body>
-</html>

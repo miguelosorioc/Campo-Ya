@@ -24,7 +24,21 @@ document.getElementById('adminLoginForm').addEventListener('submit', async (e) =
             localStorage.setItem('access',   data.access);
             localStorage.setItem('refresh',  data.refresh);
             localStorage.setItem('username', username);
-            window.location.href = 'producto.html';
+
+            // Consultar rol del usuario
+            const perfil     = await fetch(`${API}/users/profile/`, {
+                headers: { 'Authorization': `Bearer ${data.access}` }
+            });
+            const perfilData = await perfil.json();
+            localStorage.setItem('rol', perfilData.rol);
+
+            // Redirigir según rol
+            if (perfilData.rol === 'granjero') {
+                window.location.href = 'granjero.html';
+            } else {
+                window.location.href = 'producto.html';
+            }
+
         } else {
             errorMsg.textContent = 'Usuario o contraseña incorrectos.';
             btn.textContent = 'Iniciar sesión';

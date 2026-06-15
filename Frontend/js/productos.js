@@ -60,7 +60,7 @@ function renderProductos(productos) {
                 <div class="card-footer">
                     <span>${p.stock > 0 ? 'Disponible' : 'Agotado'}</span>
                     <button
-                        onclick="agregarAlCarrito(${p.id}, '${p.nombre}', ${p.precio})"
+                        onclick="agregarAlCarrito(${p.id}, '${p.nombre}', ${p.precio},'${p.granjero}','${p.whatsapp}')"
                         ${p.stock <= 0 ? 'disabled style="opacity:0.5;cursor:not-allowed"' : ''}>
                         Agregar
                     </button>
@@ -101,14 +101,24 @@ document.querySelectorAll('.filters button').forEach(btn => {
 });
 
 // ── Agregar al carrito ─────────────────────────────────────────
-function agregarAlCarrito(id, nombre, precio) {
+function agregarAlCarrito(id, nombre, precio,granjero, whatsapp) {
     let carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+
+    if (
+    carrito.length > 0 &&
+    carrito[0].granjero !== granjero
+) {
+    alert(
+        'Solo puedes comprar productos de un mismo granjero por pedido.'
+    );
+    return;
+}
     const existe = carrito.find(item => item.id === id);
 
     if (existe) {
         existe.cantidad += 1;
     } else {
-        carrito.push({ id, nombre, precio, cantidad: 1 });
+        carrito.push({ id, nombre, precio, cantidad: 1, granjero, whatsapp });
     }
 
     localStorage.setItem('carrito', JSON.stringify(carrito));

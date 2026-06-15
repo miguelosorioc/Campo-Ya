@@ -1,100 +1,162 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CampoYa</title>
-    <link rel="stylesheet" href="CSS/styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CampoYa</title>
+<link rel="stylesheet" href="CSS/styles.css">
 </head>
 <body>
-    <main class="page">
-        <header class="topbar">
-            <a href="index.html" class="brand">
-                <span class="brand-circle"></span>
-                CampoYa
-            </a>
-            <ul class="nav-links">
-                <li><a href="producto.html">Tienda</a></li>
-                <li><a href="#">Granjas</a></li>
-                <li><a href="#">Cómo funciona</a></li>
-            </ul>
-            <div id="auth-area">
-                <button class="login-btn" onclick="window.location.href='sesion.html'">Iniciar sesión</button>
-            </div>
-        </header>
 
-        <section class="hero">
-            <div class="hero-main">
-                <div class="search-panel">
-                    <span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 21s-6-4.35-6-10a6 6 0 1 1 12 0c0 5.65-6 10-6 10z"></path>
-                            <circle cx="12" cy="10" r="3"></circle>
-                        </svg>
-                        Riohacha · Directo de casa fincas
-                    </span>
-                </div>
-                <h1 class="hero-title">Del campo <em>fresco</em> a tu casa.</h1>
-                <p class="hero-copy">Compra frutas, verduras y hortalizas cultivadas por productores cercanos en Riohacha. Elige por producto o por finca, paga fácil y recibe tu pedido en casa.</p>
-                <div class="actions">
-                    <button class="primary" onclick="window.location.href='producto.html'">Comprar productos</button>
-                    <button class="secondary">Ver granjas locales</button>
-                </div>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <strong>+25</strong>
-                        <span>productos frescos disponibles</span>
-                    </div>
-                    <div class="stat-card">
-                        <strong>Hoy</strong>
-                        <span>entregas programadas en Riohacha</span>
-                    </div>
-                    <div class="stat-card">
-                        <strong>Local</strong>
-                        <span>compra directa a productores</span>
-                    </div>
-                </div>
-            </div>
+<nav>
+  <a href="index.html" class="brand">
+    <div class="brand-dot"></div>
+    CampoYa
+  </a>
+  <ul class="nav-links">
+    <li><a href="producto.html">Tienda</a></li>
+    <li><a href="#">Granjas</a></li>
+    <li><a href="#">Cómo funciona</a></li>
+  </ul>
+  <div class="nav-actions" id="auth-area">
+    <button class="btn-ghost" onclick="window.location.href='sesion.html'">Iniciar sesión</button>
+    <button class="btn-primary" onclick="window.location.href='registro.html'">Registrarse</button>
+  </div>
+</nav>
 
-            <div class="hero-visual">
-                <div class="visual-card">
-                    <div class="circle-dot small"></div>
-                    <div class="circle-dot medium"></div>
-                    <div class="circle-dot large"></div>
-                    <div class="info-bubble">
-                        <div class="info-icon">
-                            <svg viewBox="0 0 64 64" fill="none" stroke="#2d6b33" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M20 30c0-8.8 6.7-16 15-16s15 7.2 15 16c0 8.8-6.7 16-15 16S20 38.8 20 30z"></path>
-                                <path d="M29 36c2.4 2.4 4.8 2.4 7.2 0"></path>
-                                <path d="M22 22c3 3.5 7.8 4.5 12 1"></path>
-                            </svg>
-                        </div>
-                        <div class="info-text">
-                            <strong>Entrega local</strong>
-                            <small>Desde granjas y casa fincas hasta tu puerta.</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+<section class="hero">
+  <div>
+    <div class="hero-badge">
+      <span></span>
+      Disponible en Riohacha
+    </div>
+    <h1>Del campo <em>fresco</em><br>a tu mesa.</h1>
+    <p class="hero-desc">Frutas, verduras y hortalizas de productores locales. Cada día hay nuevos productos disponibles por 24 horas, directo desde la finca hasta tu puerta.</p>
+    <div class="hero-cta">
+      <button class="btn-cta" onclick="window.location.href='producto.html'">Ver productos de hoy</button>
+      <button class="btn-secondary" onclick="window.location.href='registro.html'">¿Eres granjero?</button>
+    </div>
+  </div>
 
-    <script>
-        const username = localStorage.getItem('username');
-        const token    = localStorage.getItem('access');
-        const authArea = document.getElementById('auth-area');
+  <div class="hero-visual">
+    <div class="visual-main">
+      <div class="leaf-bg"></div>
+      <div class="leaf-bg-2"></div>
+      <div class="tag-float">🌿 Cosechado hoy</div>
+      <div class="product-float">
+   <div class="product-float" id="producto-destacado">
+    <div class="product-emoji">🌿</div>
+    <div class="product-info">
+        <strong>Cargando...</strong>
+        <span>Buscando productos del día</span>
+    </div>
+    <div class="product-timer">⏱ --</div>
+</div>
+    </div>
+  </div>
+</section>
 
-        if (username && token) {
-            authArea.innerHTML = `
-                <div style="display:flex; align-items:center; gap:12px;">
-                    <a href="carrito.html" style="text-decoration:none; color:var(--text); font-weight:600; font-size:1.3rem;">
-                        🛒
-                    </a>
-                    <button class="login-btn" onclick="window.location.href='perfil.html'">
-                        👤 ${username}
-                    </button>
+<div class="stats">
+  <div class="stat">
+    <strong>+25</strong>
+    <span>productos frescos hoy</span>
+  </div>
+  <div class="stat">
+    <strong>24h</strong>
+    <span>duración por publicación</span>
+  </div>
+  <div class="stat">
+    <strong>Local</strong>
+    <span>compra directa al productor</span>
+  </div>
+</div>
+
+<section class="how">
+  <p class="section-label">Cómo funciona</p>
+  <h2>Sencillo para todos</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>El granjero publica</h3>
+      <p>Cada día los productores suben lo que tienen disponible: precio, cantidad y foto. El producto dura 24 horas o hasta agotarse.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Tú eliges y compras</h3>
+      <p>Navega los productos del día, agrega al carrito y paga fácil. Ves exactamente de qué finca viene cada cosa.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Llega a tu puerta</h3>
+      <p>El pedido sale directo desde la finca a tu casa en Riohacha. Sin intermediarios, más fresco y más barato.</p>
+    </div>
+  </div>
+</section>
+
+<div class="footer-cta">
+  <h2>¿Tienes una finca o huerta?</h2>
+  <p>Publica tus productos hoy y llega directo a tus clientes en Riohacha.</p>
+  <button class="btn-white" onclick="window.location.href='registro.html'">Registrarse como granjero</button>
+</div>
+
+<script>
+// Cargar producto destacado desde la API
+async function cargarProductoDestacado() {
+    try {
+        const res      = await fetch('http://127.0.0.1:8000/api/productos/');
+        const productos = await res.json();
+
+        if (!productos.length) {
+            document.getElementById('producto-destacado').innerHTML = `
+                <div class="product-emoji">🌿</div>
+                <div class="product-info">
+                    <strong>Sin productos hoy</strong>
+                    <span>Vuelve pronto</span>
                 </div>`;
+            return;
         }
-    </script>
+
+        // Tomar uno aleatorio de los disponibles
+        const p = productos[Math.floor(Math.random() * productos.length)];
+
+        const expira  = new Date(p.expira_en);
+        const ahora   = new Date();
+        const diff    = expira - ahora;
+        const horas   = Math.floor(diff / (1000 * 60 * 60));
+        const minutos = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const timer   = horas > 0 ? `${horas}h ${minutos}m` : `${minutos}min`;
+
+        const emojis  = { verdura:'🥬', fruta:'🍉', tuberculo:'🥔', otro:'🌿' };
+        const emoji   = emojis[p.categoria] || '🌿';
+
+        document.getElementById('producto-destacado').innerHTML = `
+            <div class="product-emoji">${emoji}</div>
+            <div class="product-info">
+                <strong>${p.nombre}</strong>
+                <span>Por ${p.granjero} · $${Number(p.precio).toLocaleString('es-CO')}/lb · ${p.stock} lb disponibles</span>
+            </div>
+            <div class="product-timer">⏱ ${timer}</div>`;
+
+    } catch (err) {
+        console.error('Error cargando producto:', err);
+    }
+}
+
+cargarProductoDestacado();
+</script>
+
+<script>
+  const username = localStorage.getItem('username');
+  const token    = localStorage.getItem('access');
+  const authArea = document.getElementById('auth-area');
+
+  if (username && token) {
+    authArea.innerHTML = `
+      <a href="carrito.html" style="text-decoration:none;color:var(--text);font-size:1.2rem;">🛒</a>
+      <button class="btn-primary" onclick="window.location.href='perfil.html'">👤 ${username}</button>
+    `;
+  }
+</script>
+
 </body>
 </html>

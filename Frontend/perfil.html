@@ -49,7 +49,6 @@
           </div>
         </div>
 
-        <!-- Card del granjero — solo visible si rol === granjero -->
         <div id="granjero-banner" style="display:none; margin-bottom:28px;">
           <div class="granjero-card-banner" onclick="window.location.href='granjero.html'">
             <div class="granjero-banner-icon">🌱</div>
@@ -131,6 +130,12 @@
   <script>
     const API = 'http://127.0.0.1:8000/api';
 
+    // Redirigir granjero a su panel
+    const rol = localStorage.getItem('rol');
+    if (rol === 'granjero') {
+        window.location.href = 'granjero.html';
+    }
+
     async function cargarPerfil() {
       const token = localStorage.getItem('access');
       if (!token) {
@@ -148,7 +153,10 @@
           return;
         }
 
-        const data = await res.json();
+        const data = await fetch(`${API}/users/profile/`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        }).then(r => r.json());
+
         const iniciales = data.username.substring(0, 2).toUpperCase();
 
         document.getElementById('perfil-avatar').textContent  = iniciales;
@@ -158,7 +166,6 @@
         document.getElementById('contacto-email').textContent   = data.email || '-';
         document.getElementById('contacto-usuario').textContent = data.username;
 
-        // Mostrar banner del granjero si tiene ese rol
         if (data.rol === 'granjero') {
             document.getElementById('granjero-banner').style.display = 'block';
         }
@@ -209,6 +216,7 @@
       localStorage.removeItem('refresh');
       localStorage.removeItem('username');
       localStorage.removeItem('carrito');
+      localStorage.removeItem('rol');
       window.location.href = 'index.html';
     }
 

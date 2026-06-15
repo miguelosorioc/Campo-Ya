@@ -16,18 +16,16 @@
             <ul class="nav-links">
                 <li><a href="producto.html">Tienda</a></li>
                 <li><a href="perfil.html">Mi perfil</a></li>
-                <li><a href="#">Granjas</a></li>
-                <li><a href="#">Cómo funciona</a></li>
             </ul>
-            <button class="back-button" onclick="window.location.href='producto.html'">Regresar</button>
+            <button class="back-button" onclick="window.location.href='producto.html'">← Regresar</button>
         </header>
 
         <section class="hero">
             <div>
-                <h1 class="hero-title">Del campo <em>fresco</em> a tu casa.</h1>
+                <h1 class="hero-title">Tu <em>carrito</em></h1>
                 <section class="cart-section">
                     <div class="cart-header">
-                        <h2>Carrito</h2>
+                        <h2>Productos</h2>
                         <span class="item-count" id="item-count">0 items</span>
                     </div>
                     <hr class="divider">
@@ -49,6 +47,7 @@
                     <span>Domicilio</span>
                     <strong>$4.000</strong>
                 </div>
+                <hr class="divider">
                 <div class="summary-row total">
                     <span>Total</span>
                     <strong id="total">$4.000</strong>
@@ -141,16 +140,81 @@
             }
         }
 
-        function finalizarPedido() {
-            const token = localStorage.getItem('access');
-            if (!token) {
-                alert('Debes iniciar sesión para continuar.');
-                window.location.href = 'sesion.html';
-                return;
-            }
-            alert('Funcionalidad de pago próximamente.');
-        }
+       function finalizarPedido() {
+    const token = localStorage.getItem('access');
 
+    if (!token) {
+        alert('Debes iniciar sesión para continuar.');
+        window.location.href = 'sesion.html';
+        return;
+    }
+
+    const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+
+    if (carrito.length === 0) {
+        alert('Tu carrito está vacío.');
+        return;
+    }
+
+    const numero = carrito[0].whatsapp;
+
+    if (!numero) {
+        alert('Este granjero aún no tiene un número de WhatsApp registrado.');
+        return;
+    }
+
+    const subtotal = carrito.reduce(
+        (acc, item) => acc + (item.precio * item.cantidad),
+        0
+    );
+
+    const domicilio = 4000;
+    const total = subtotal + domicilio;
+
+    let mensaje =
+`🌱 NUEVO PEDIDO - CAMPOYA 🌱
+
+Hola ${carrito[0].granjero}.
+
+He realizado un pedido desde CampoYa y deseo confirmar la compra.
+
+🛒 PRODUCTOS SOLICITADOS
+
+`;
+
+    carrito.forEach(item => {
+        mensaje += `• ${item.nombre}
+Cantidad: ${item.cantidad} lb
+Valor: $${(item.precio * item.cantidad).toLocaleString('es-CO')}
+
+`;
+    });
+
+    mensaje += `
+━━━━━━━━━━━━━━
+
+💰 RESUMEN DEL PEDIDO
+
+Subtotal: $${subtotal.toLocaleString('es-CO')}
+Domicilio: $${domicilio.toLocaleString('es-CO')}
+Total: $${total.toLocaleString('es-CO')}
+
+━━━━━━━━━━━━━━
+
+Por favor confirmar:
+
+✅ Disponibilidad de los productos
+✅ Tiempo estimado de entrega
+✅ Método de pago disponible
+
+Gracias por usar CampoYa 🌿
+`;
+
+    window.open(
+        `https://wa.me/57${numero}?text=${encodeURIComponent(mensaje)}`,
+        '_blank'
+    );
+}
         cargarCarrito();
     </script>
 </body>

@@ -3,12 +3,17 @@ from .models import Producto, Pedido, ItemPedido
 
 class ProductoSerializer(serializers.ModelSerializer):
     granjero = serializers.CharField(source='granjero.username', read_only=True)
+
+    whatsapp = serializers.CharField(
+        source='granjero.profile.whatsapp',
+        read_only=True
+)
     activo   = serializers.BooleanField(read_only=True)
 
     class Meta:
         model  = Producto
         fields = [
-            'id', 'granjero', 'nombre', 'descripcion',
+            'id', 'granjero', 'whatsapp', 'nombre', 'descripcion',
             'categoria', 'precio', 'stock', 'foto',
             'expira_en', 'creado_en', 'activo'
         ]

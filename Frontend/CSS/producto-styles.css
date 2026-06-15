@@ -5,40 +5,46 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f7f2e8;
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(198,229,181,0.3), transparent 40%),
+    radial-gradient(circle at bottom right, rgba(227,236,186,0.5), transparent 40%),
+    #f7f2e8;
   color: #092b16;
+  min-height: 100vh;
 }
 
 .page {
   width: 100%;
   min-height: 100vh;
-  padding: 38px 52px;
-  background: #f8f4ea;
+  padding: 32px 52px 64px;
 }
 
+/* ── Header ── */
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 20px;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: 14px;
+  text-decoration: none;
 }
 
 .logo {
-  width: 72px;
-  height: 72px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: #47783a;
+  background: #214b24;
 }
 
 .brand h1 {
-  font-size: 32px;
-  color: #245b32;
+  font-size: 1.25rem;
+  color: #214b24;
   font-weight: 800;
 }
 
@@ -47,175 +53,208 @@ body {
   background: #155a33;
   color: white;
   border: none;
-  border-radius: 20px;
-  padding: 11px 38px;
+  border-radius: 999px;
+  padding: 10px 26px;
   font-weight: 700;
-  box-shadow: 0 8px 16px rgba(21, 90, 51, 0.25);
+  font-size: 0.88rem;
+  font-family: inherit;
+  box-shadow: 0 8px 16px rgba(21, 90, 51, 0.22);
   cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
+.cart-btn:hover,
+.home-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 22px rgba(21, 90, 51, 0.28);
+}
+
+/* ── Nav ── */
 .nav {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  max-width: 880px;
-  margin: 28px 0 30px 110px;
-  text-align: center;
+  display: flex;
+  gap: 28px;
+  margin: 0 0 28px 0;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(16, 48, 27, 0.09);
 }
 
 .nav a {
-  color: #111;
+  color: #5f6b55;
   text-decoration: none;
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: color 0.2s;
 }
 
-.location-box {
-  width: 470px;
-  margin: 0 auto 8px;
-  padding: 5px 16px;
-  border-radius: 18px;
-  background: white;
-  text-align: center;
-  font-size: 10px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+.nav a:hover {
+  color: #214b24;
 }
 
-.location-box span {
-  font-weight: 700;
-}
-
-.location-box p {
-  color: #9a968d;
-  margin-top: 2px;
-}
-
+/* ── Hero (título + filtros) ── */
 .hero {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 14px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .hero h2 {
-  font-size: 31px;
-  font-weight: 500;
-  margin-bottom: 18px;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 4px;
 }
 
+/* ── Filtros ── */
 .filters {
   display: flex;
-  gap: 10px;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .filters button {
-  border: none;
+  border: 1.5px solid rgba(16, 48, 27, 0.12);
   background: white;
-  border-radius: 18px;
-  padding: 9px 16px;
-  font-size: 10px;
-  font-weight: 700;
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-size: 0.83rem;
+  font-weight: 600;
+  font-family: inherit;
   cursor: pointer;
+  color: #5f6b55;
+  transition: all 0.2s ease;
 }
 
-.filters .active {
-  background: #0d4c2b;
+.filters button:hover {
+  border-color: #214b24;
+  color: #214b24;
+}
+
+.filters button.active {
+  background: #214b24;
   color: white;
+  border-color: #214b24;
 }
 
+/* ── Grid productos ── */
 .products {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 28px 42px;
+  gap: 24px 28px;
 }
 
+/* ── Tarjeta ── */
 .card {
   overflow: hidden;
   border-radius: 18px;
   background: white;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(16, 48, 27, 0.07);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(15, 35, 15, 0.12);
+}
+
+/* ── Imagen ── */
 .image {
   height: 145px;
-  background-color: #ecebe5;
-  font-size: 64px;
+  background-color: #e7f4db;
+  font-size: 56px;
   display: grid;
   place-items: center;
+  position: relative;
 }
 
-.tomato::before {
-  content: "🍅";
+.timer-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.52);
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
 }
 
-.ginger::before {
-  content: "🫚";
-}
-
-.onion::before {
-  content: "🧅";
-}
-
-.lettuce::before {
-  content: "🥬";
-}
-
+/* ── Contenido tarjeta ── */
 .card-content {
-  padding: 14px 17px 15px;
+  padding: 14px 16px 16px;
 }
 
 .card h3 {
-  font-size: 13px;
-  margin-bottom: 5px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 4px;
 }
 
 .card strong {
   display: block;
-  font-size: 12px;
-  margin-bottom: 8px;
+  font-size: 0.95rem;
+  color: #214b24;
+  font-weight: 700;
+  margin-bottom: 4px;
 }
 
 .card p {
-  font-size: 10px;
+  font-size: 0.78rem;
   color: #8a877e;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
 }
 
 .card-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 8px;
 }
 
 .card-footer span {
-  font-size: 10px;
+  font-size: 0.78rem;
   color: #47783a;
   font-weight: 700;
 }
 
 .card-footer button {
   border: none;
-  border-radius: 15px;
+  border-radius: 999px;
   background: #155a33;
   color: white;
-  padding: 7px 14px;
-  font-size: 10px;
+  padding: 7px 16px;
+  font-size: 0.78rem;
   font-weight: 700;
+  font-family: inherit;
   cursor: pointer;
+  transition: background 0.2s;
 }
 
-.image {
-    position: relative;
+.card-footer button:hover {
+  background: #0d3d22;
 }
 
-.timer-badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: rgba(0, 0, 0, 0.55);
-    color: white;
-    font-size: 10px;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 999px;
-    backdrop-filter: blur(4px);
+.card-footer button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .products { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .page { padding: 24px 20px 48px; }
+  .products { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .hero { flex-direction: column; }
+  .nav { gap: 18px; }
+}
+
+@media (max-width: 480px) {
+  .products { grid-template-columns: 1fr 1fr; gap: 12px; }
 }

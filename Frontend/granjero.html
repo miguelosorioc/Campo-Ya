@@ -89,6 +89,22 @@
                         <textarea name="descripcion" placeholder="Ej: Cosechado esta mañana, muy fresco..." rows="3"></textarea>
                     </div>
 
+                    <div class="form-group">
+                         <label>WhatsApp para recibir pedidos</label>
+                              <input
+                                   type="text"
+                                   id="whatsapp"
+                                    placeholder="573001234567">
+                    </div>
+
+                    <button
+                        type="button"
+                        class="btn-publicar"
+                        onclick="guardarWhatsapp()"
+                        style="margin-bottom:16px;">
+                        Guardar WhatsApp
+                    </button>
+
                     <p class="error-msg" id="productoError"></p>
                     <p class="success-msg" id="productoSuccess"></p>
 
@@ -162,7 +178,63 @@
                 console.error('Error cargando productos:', err);
             }
         }
+        //---
 
+
+
+        async function cargarPerfil() {
+
+                    try {
+                            const res = await fetch(`${API}/users/profile/`, {
+                                headers: {
+                                    'Authorization': `Bearer ${token}`
+                                }
+                             });
+
+                    const data = await res.json();
+                    if (data.whatsapp) {
+                            document.getElementById('whatsapp').value =
+                                data.whatsapp;
+                     }
+                 } catch (err) {
+                        console.error('Error cargando perfil:', err);
+                 }
+             }
+
+async function guardarWhatsapp() {
+
+    const whatsapp =
+        document.getElementById('whatsapp').value.trim();
+
+    if (!whatsapp) {
+        alert('Ingresa un número de WhatsApp');
+        return;
+    }
+
+    try {
+
+        const res = await fetch(`${API}/users/profile/`, {
+            method: 'PATCH',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                whatsapp
+            })
+        });
+
+        if (res.ok) {
+            alert('WhatsApp guardado correctamente');
+        } else {
+            alert('No se pudo guardar el número');
+        }
+
+    } catch (err) {
+        alert('Error de conexión');
+    }
+}
+        //---
         // ── Preview de foto ────────────────────────────────────
         document.getElementById('foto-upload-area').addEventListener('click', () => {
             document.getElementById('fotoInput').click();
@@ -212,6 +284,31 @@
             const categoria   = e.target.categoria.value;
             const descripcion = e.target.descripcion.value.trim();
             const fotoFile    = document.getElementById('fotoInput').files[0];
+try {
+
+    const perfil = await fetch(`${API}/users/profile/`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+
+    const datosPerfil = await perfil.json();
+
+    if (!datosPerfil.whatsapp) {
+
+        errorMsg.textContent =
+            'Debes configurar tu WhatsApp antes de publicar productos.';
+
+        return;
+    }
+
+} catch (err) {
+
+    errorMsg.textContent =
+        'No se pudo verificar tu perfil.';
+
+    return;
+}
 
             btn.textContent = 'Publicando...';
             btn.disabled    = true;
@@ -285,7 +382,7 @@
             localStorage.clear();
             window.location.href = 'index.html';
         }
-
+        cargarPerfil();
         cargarMisProductos();
     </script>
 </body>
